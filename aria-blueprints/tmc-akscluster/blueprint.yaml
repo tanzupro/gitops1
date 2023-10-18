@@ -1,6 +1,5 @@
 name: tmc-akscluster
 version: 1.0
-project: tanzupro
 inputs:
   terraform_tmc_version:
     type: string
