@@ -1,0 +1,107 @@
+name: tmc-akscluster
+version: 1.0
+inputs:
+  terraform_tmc_version:
+    type: string
+    default: 1.2.3
+    description: Terraform TMC Provider Version
+  tmc_endpoint:
+    type: string
+    default: tanzutmm.tmc.cloud.vmware.com
+    description: TMC endpoint URL
+  azure_credential_name:
+    type: string
+    default: afewell-azure
+    description: TMC Credential Name for Azure Account
+  azure_resource_group:
+    type: string
+    default: genaissance
+    description: Azure Resource Group
+  cluster_name:
+    type: string
+    default: my-new-aks-cluster
+    description: Enter a name for the cluster that will be created
+  cluster_group_name:
+    type: string
+    default: genaissance
+    description: Enter the name for the cluster group the created cluster will be associated to.
+  cluster_description:
+    type: string
+    default: Enter a description for this cluster
+    description: Enter a description for this cluster
+  cluster_labels:
+    type: object
+    default:
+      key1: value1
+      key2: value2
+    description: Enter any labels for this cluster
+  cluster_location:
+    type: string
+    default: westus2
+    description: The Azure Region where the cluster will be deployed
+  kubernetes_version:
+    type: string
+    default: 1.26.6
+    description: Kubernetes Version for this cluster
+  nodepool_1_name:
+    type: string
+    default: systemnp
+    description: TMC Credential Name for Azure Account
+  nodepool_1_count:
+    type: number
+    default: '3'
+    description: Number of nodes, ignored if autoscaling
+  nodepool_1_vm_size:
+    type: string
+    default: Standard_A2m_v2
+    description: VM size for nodepool 1 nodes
+  nodepool_1_node_disk_size_gb:
+    type: number
+    default: '150'
+    description: OS Disk Size in GB to be used to specify the disk size for every machine in the nodepool. If you specify 0, it will apply the default osDisk size according to the vmSize specified
+  nodepool_1_enable_auto_scaling:
+    type: boolean
+    default: true
+    description: Enable auto-scaling for this cluster (true or false)?
+  nodepool_1_max_node_count:
+    type: number
+    default: '5'
+    description: Maximum number of nodes for this cluster
+  nodepool_1_min_node_count:
+    type: number
+    default: '1'
+    description: Minimum number of nodes for this cluster
+resources:
+  terraform:
+    type: Cloud.Terraform.Configuration
+    metadata:
+      layoutPosition:
+        - 0
+        - 0
+    properties:
+      variables:
+        terraform_tmc_version: ${input.terraform_tmc_version}
+        tmc_endpoint: ${input.tmc_endpoint}
+        vmw_cloud_api_token: ${secret.afewell_vmw_cloud_api_token}
+        azure_credential_name: ${input.azure_credential_name}
+        azure_subscription_id: ${secret.afewell_azure_subscription_id}
+        azure_resource_group: ${input.azure_resource_group}
+        cluster_name: ${input.cluster_name}
+        cluster_group_name: ${input.cluster_group_name}
+        cluster_description: ${input.cluster_description}
+        cluster_labels: ${input.cluster_labels}
+        cluster_location: ${input.cluster_location}
+        kubernetes_version: ${input.kubernetes_version}
+        nodepool_1_name: ${input.nodepool_1_name}
+        nodepool_1_count: ${input.nodepool_1_count}
+        nodepool_1_vm_size: ${input.nodepool_1_vm_size}
+        nodepool_1_node_disk_size_gb: ${input.nodepool_1_node_disk_size_gb}
+        nodepool_1_enable_auto_scaling: ${input.nodepool_1_enable_auto_scaling}
+        nodepool_1_max_node_count: ${input.nodepool_1_max_node_count}
+        nodepool_1_min_node_count: ${input.nodepool_1_min_node_count}
+      providers: []
+      terraformVersion: 1.5.5
+      configurationSource:
+        repositoryId: a7de56c9-6d79-490d-a643-ea40fdbe787c
+        commitId: f92f7112e729b887168c500bdfbdebda3d4f3faa
+        sourceDirectory: tmc-akscluster
