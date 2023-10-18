@@ -1,6 +1,6 @@
 {
   "branches": "main",
-  "repositoryUrl": "https://github.com/afewell/base_semvar_template",
+  "repositoryUrl": "https://github.com/afewell/gitops1",
   "debug": "false",
   "plugins": [
     "@semantic-release/commit-analyzer",
