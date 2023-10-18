@@ -1,5 +1,5 @@
 name: tmc-akscluster
-version: 1.0
+version: 1.1
 inputs:
   terraform_tmc_version:
     type: string
