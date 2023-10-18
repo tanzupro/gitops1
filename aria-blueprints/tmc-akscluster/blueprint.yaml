@@ -1,4 +1,4 @@
-name: test-tmc-akscluster
+name: tmc-akscluster
 version: 1.0
 project: tanzupro
 inputs:
