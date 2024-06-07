@@ -1,3 +1,9 @@
+locals {
+  concourse_name_initial = google_dns_record_set.concourse.name
+  concourse_name_no_trailing_dot = chomp(local.concourse_name_initial) # Removes trailing dot
+  concourse_name_final = regex_replace(local.concourse_name_no_trailing_dot, "^\\*\\.", "") # Removes leading *.
+}
+
 resource "google_dns_record_set" "concourse" {
   name = "ci.${var.environment_name}.${data.google_dns_managed_zone.hosted-zone.dns_name}"
   type = "A"
@@ -63,5 +69,5 @@ resource "google_compute_target_pool" "concourse_target_pool" {
 }
 
 output "concourse_url" {
-  value = replace(replace("${google_dns_record_set.concourse.name}", "/\.$/", ""), "*.", "")
+  value = local.concourse_name_final
 }
