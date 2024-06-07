@@ -1,7 +1,9 @@
 locals {
-  concourse_name_initial = google_dns_record_set.concourse.name
-  concourse_name_no_trailing_dot = chomp(local.concourse_name_initial) # Removes trailing dot
-  concourse_name_final = regex_replace(local.concourse_name_no_trailing_dot, "^\\*\\.", "") # Removes leading *.
+  concourse_name = google_dns_record_set.concourse.name
+  # Remove trailing period if exists
+  concourse_name_no_trailing_dot = trimspace(trimspace(replace(concat(local.concourse_name, "."), "..", "")))
+  # Remove leading *.
+  concourse_name_final = replace(local.concourse_name_no_trailing_dot, "*.", "")
 }
 
 resource "google_dns_record_set" "concourse" {
